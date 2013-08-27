@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[javer]]></name>
+    <description><![CDATA[javer's overlay]]></description>
+    <homepage>https://github.com/javer/gentoo-overlay</homepage>
+    <owner type="person">
+      <email>dev@javer.kiev.ua</email>
+      <name><![CDATA[Vadim Borodavko]]></name>
+    </owner>
+    <source type="git">git://github.com/javer/gentoo-overlay.git</source>
+    <source type="git">https://github.com/javer/gentoo-overlay.git</source>
+    <feed>https://github.com/javer/gentoo-overlay/commits/master.atom</feed>
+  </repo> 
+</repositories>
