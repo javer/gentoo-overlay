@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export HPHP_HOME="/usr/lib/hiphop-php/lib/"
+export HPHP_LIB="/usr/lib/hiphop-php/lib/"
+export CMAKE_PREFIX_PATH="/usr/lib/hiphop-php/lib/"
+LD_LIBRARY_PATH=/usr/lib/hiphop-php/lib /usr/lib/hiphop-php/bin/hhvm "$@"

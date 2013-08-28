@@ -1,0 +1,48 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+description="Virtual Machine, Runtime, and JIT for PHP"
+
+hphp_config=${hphp_config:-/etc/hiphop/config.hdf}
+
+hphp_lib="/usr/lib/hiphop-php/lib"
+command="/usr/lib/hiphop-php/bin/hhvm"
+pidfile=${pidfile:-/var/run/hphp.pid}
+logfile=${logfile:-/var/log/hphp_server.log}
+
+depend() {
+	need net
+	use dns logger
+}
+
+checkconfig() {
+	if [ ! -f "${hphp_config}" ] ; then
+		eerror "Please create ${hphp_config}"
+		eerror "Sample conf: ${hphp_config}.dist"
+		return 1
+	fi
+	return 0
+}
+
+start() {
+	checkconfig || return $?
+
+	ebegin "Starting HipHop VM"
+	LD_LIBRARY_PATH="${hphp_lib}" start-stop-daemon --start --background \
+		--exec "${command}" \
+		--pidfile "${pidfile}" \
+		--stdout "${logfile}" \
+		--stderr "${logfile}" \
+		--env HPHP_HOME="${hphp_lib}/" \
+		--env HPHP_LIB="${hphp_lib}/" \
+		--env CMAKE_PREFIX_PATH="${hphp_lib}/" \
+		-- -m server -c "${hphp_config}"
+	eend $? "Failed to start HipHop VM"
+}
+
+stop() {
+	ebegin "Stopping HipHop VM"
+	start-stop-daemon --stop --pidfile "${pidfile}"
+	eend $? "Failed to stop HipHop VM"
+}
