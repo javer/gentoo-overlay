@@ -11,7 +11,8 @@ Package Tree
     │   ├── libdwarf
     │   └── libmemcached
     ├── dev-php
-    │   └── hiphop-php
+    │   ├── hiphop-php
+    │   └── pinba-extension
     └── dev-util
         ├── jenkins-bin
         └── teamcity
