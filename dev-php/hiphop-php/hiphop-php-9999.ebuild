@@ -8,7 +8,7 @@ inherit eutils git-2
 EGIT_REPO_URI="https://github.com/facebook/hiphop-php.git"
 EGIT_BRANCH="master"
 
-IUSE="+jemalloc devel"
+IUSE="+jemalloc devel debug"
 
 CURL_P="curl-7.31.0"
 LIBEVENT_P="libevent-1.4.14b-stable"
@@ -41,7 +41,7 @@ RDEPEND="
 	dev-libs/expat
 	sys-libs/readline
 	sys-libs/ncurses
-	<=dev-libs/libmemcached-1.0.7
+	dev-libs/libmemcached
 	net-nds/openldap
 	net-libs/c-client
 	dev-util/google-perftools
@@ -106,12 +106,17 @@ src_prepare()
 		emake -j1 install
 		popd > /dev/null
 	fi
+
+	if use debug;
+	then
+		einfo "Configuring DEBUG build"
+		sed -i -E 's/^#(.*CMAKE_BUILD_TYPE.*Debug.*)$/\1/' "${S}/CMake/Options.cmake"
+	fi
 }
 
 src_configure()
 {
 	export HPHP_HOME="${S}"
-	export HPHP_LIB="${S}/bin"
 	econf
 }
 
@@ -134,6 +139,7 @@ src_install()
 	popd > /dev/null
 
 	rm -rf "${D}/usr/lib/hiphop-php/"{bin,include,share}
+	rm -rf "${D}/usr/lib/hiphop-php/lib/pkgconfig"
 	rm -f "${D}/usr/lib/hiphop-php/lib/"*.{a,la}
 
 	exeinto "/usr/lib/hiphop-php/bin"

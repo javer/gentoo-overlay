@@ -35,8 +35,6 @@ start() {
 		--stdout "${logfile}" \
 		--stderr "${logfile}" \
 		--env HPHP_HOME="${hphp_lib}/" \
-		--env HPHP_LIB="${hphp_lib}/" \
-		--env CMAKE_PREFIX_PATH="${hphp_lib}/" \
 		-- -m server -c "${hphp_config}"
 	eend $? "Failed to start HipHop VM"
 }

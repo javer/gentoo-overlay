@@ -28,10 +28,6 @@ Server {
     RequestTimeoutSeconds = 30
     RequestMemoryMaxBytes = 67108864
 
-    # Recommend to turn this on to avoid memory leaks and to enable warmup
-    # document features.
-    EnableMemoryManager = true
-
     # Only for debugging memory problems. When turned on, server will report
     # SmartAllocator's usage for each thread to stdout.
     CheckMemory = false
@@ -120,12 +116,6 @@ Server {
 
     APC {
         EnableApc = true
-
-        # When off, APC will use regular process memory for faster access, but
-        # only limited to single process. Shared memory model allows sharing
-        # between two or more processes, but it has SharedMemorySize as upper limit.
-        UseSharedMemory = true
-        SharedMemorySize = 128  # in MB
 
         # There is a way to prepare APC items in dry format, serialized in
         # binary files, and these files can be loaded (or “primed”) extremely
@@ -229,7 +219,6 @@ Stats = false
 Stats {
     Web = false
     Memory = false
-    Malloc = false
     APC = false
     APCKey = false
     SQL = false
