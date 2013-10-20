@@ -48,6 +48,9 @@ RDEPEND="
 	dev-libs/cloog
 	dev-libs/elfutils
 	dev-libs/libdwarf
+	app-arch/bzip2
+	sys-devel/binutils
+	>=sys-devel/gcc-4.6
 "
 
 DEPEND="
