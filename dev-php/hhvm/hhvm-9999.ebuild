@@ -50,12 +50,14 @@ RDEPEND="
 	dev-libs/libdwarf
 	app-arch/bzip2
 	sys-devel/binutils
-	>=sys-devel/gcc-4.6
+	>=sys-devel/gcc-4.7
 "
 
 DEPEND="
 	${RDEPEND}
 	dev-util/cmake
+	dev-vcs/git
+	dev-vcs/subversion
 "
 
 SLOT="0"

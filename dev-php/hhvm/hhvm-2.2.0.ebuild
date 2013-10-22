@@ -56,6 +56,8 @@ RDEPEND="
 DEPEND="
 	${RDEPEND}
 	dev-util/cmake
+	dev-vcs/git
+	dev-vcs/subversion
 "
 
 SLOT="0"
