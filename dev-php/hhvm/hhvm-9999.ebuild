@@ -43,7 +43,7 @@ RDEPEND="
 	sys-libs/ncurses
 	dev-libs/libmemcached
 	net-nds/openldap
-	net-libs/c-client
+	net-libs/c-client[kerberos]
 	dev-util/google-perftools
 	dev-libs/cloog
 	dev-libs/elfutils
