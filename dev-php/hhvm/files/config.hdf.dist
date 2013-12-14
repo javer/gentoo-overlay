@@ -28,10 +28,6 @@ Server {
     RequestTimeoutSeconds = 30
     RequestMemoryMaxBytes = 67108864
 
-    # Only for debugging memory problems. When turned on, server will report
-    # SmartAllocator's usage for each thread to stdout.
-    CheckMemory = false
-
     # If ServerName is not specified for a virtual host, use prefix + this
     # suffix to compose one
     #DefaultServerNameSuffix = default_domain.com
