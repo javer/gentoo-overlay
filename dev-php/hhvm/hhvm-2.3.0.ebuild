@@ -6,28 +6,25 @@ EAPI=2
 inherit eutils git-2
 
 EGIT_REPO_URI="git://github.com/facebook/hhvm.git"
-EGIT_BRANCH="HHVM-2.3"
+EGIT_COMMIT="HHVM-${PV}"
 
 IUSE="+jemalloc devel debug"
 
 CURL_P="curl-7.31.0"
 LIBEVENT_P="libevent-1.4.14b-stable"
-JEMALLOC_P="jemalloc-3.0.0"
-GOOGLE_GLOG_P="google-glog"
 
 SRC_URI="http://curl.haxx.se/download/${CURL_P}.tar.bz2
-         https://github.com/downloads/libevent/libevent/${LIBEVENT_P}.tar.gz
-         jemalloc? ( http://www.canonware.com/download/jemalloc/${JEMALLOC_P}.tar.bz2 )"
+         https://github.com/downloads/libevent/libevent/${LIBEVENT_P}.tar.gz"
 
 DESCRIPTION="Virtual Machine, Runtime, and JIT for PHP"
 HOMEPAGE="https://github.com/facebook/hhvm"
 
 RDEPEND="
-	>=dev-libs/boost-1.37
+	>=dev-libs/boost-1.48
 	sys-devel/flex
 	sys-devel/bison
 	dev-util/re2c
-	dev-db/mysql
+	virtual/mysql
 	dev-libs/libxml2
 	dev-libs/libmcrypt
 	dev-libs/icu
@@ -47,17 +44,19 @@ RDEPEND="
 	dev-util/google-perftools
 	dev-libs/cloog
 	dev-libs/elfutils
-	dev-libs/libdwarf
+	=dev-libs/libdwarf-20120410
 	app-arch/bzip2
 	sys-devel/binutils
 	>=sys-devel/gcc-4.7
+	dev-cpp/glog
+	jemalloc? ( >=dev-libs/jemalloc-3.0.0[stats] )
+	media-libs/libvpx
 "
 
 DEPEND="
 	${RDEPEND}
 	>=dev-util/cmake-2.8.7
 	dev-vcs/git
-	dev-vcs/subversion
 "
 
 SLOT="0"
@@ -92,24 +91,6 @@ src_prepare()
 	emake -j1 install
 	popd > /dev/null
 
-	einfo "Building Google glog"
-	pushd "${WORKDIR}" > /dev/null
-	svn checkout http://google-glog.googlecode.com/svn/trunk/ ${GOOGLE_GLOG_P}
-	cd ${GOOGLE_GLOG_P}
-	./configure --prefix="${CMAKE_PREFIX_PATH}"
-	emake
-	emake -j1 install
-	popd > /dev/null
-
-	if use jemalloc; then
-		einfo "Building jemalloc"
-		pushd "${WORKDIR}/${JEMALLOC_P}" > /dev/null
-		./configure --prefix="${CMAKE_PREFIX_PATH}"
-		emake
-		emake -j1 install
-		popd > /dev/null
-	fi
-
 	CMAKE_BUILD_TYPE="Release"
 	if use debug; then
 		CMAKE_BUILD_TYPE="Debug"
@@ -130,14 +111,6 @@ src_install()
 	popd > /dev/null
 
 	pushd "${WORKDIR}/${CURL_P}" > /dev/null
-	emake -j1 install
-	popd > /dev/null
-
-	pushd "${WORKDIR}/${JEMALLOC_P}" > /dev/null
-	emake -j1 install
-	popd > /dev/null
-
-	pushd "${WORKDIR}/${GOOGLE_GLOG_P}" > /dev/null
 	emake -j1 install
 	popd > /dev/null
 
