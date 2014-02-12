@@ -6,7 +6,7 @@ EAPI=2
 inherit eutils git-2
 
 EGIT_REPO_URI="git://github.com/facebook/hhvm.git"
-EGIT_BRANCH="master"
+EGIT_COMMIT="HHVM-${PV}"
 
 IUSE="+jemalloc devel debug"
 
@@ -60,7 +60,7 @@ DEPEND="
 
 SLOT="0"
 LICENSE="PHP-3"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 
 src_prepare()
 {
