@@ -9,7 +9,7 @@ JENKINS_HOME="/var/lib/jenkins/home"
 #
 # Options to pass to java when running Jenkins.
 #
-JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -XX:PermSize=256M -XX:MaxPermSize=512M"
+JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -XX:PermSize=256M -XX:MaxPermSize=512M -Dorg.eclipse.jetty.server.Request.maxFormContentSize=5000000"
 
 #
 # Port Jenkins is listening on.
