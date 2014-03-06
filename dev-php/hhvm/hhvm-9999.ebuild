@@ -20,7 +20,7 @@ DESCRIPTION="Virtual Machine, Runtime, and JIT for PHP"
 HOMEPAGE="https://github.com/facebook/hhvm"
 
 RDEPEND="
-	>=dev-libs/boost-1.48
+	>=dev-libs/boost-1.49
 	sys-devel/flex
 	sys-devel/bison
 	dev-util/re2c
@@ -51,6 +51,8 @@ RDEPEND="
 	dev-cpp/glog
 	jemalloc? ( >=dev-libs/jemalloc-3.0.0[stats] )
 	media-libs/libvpx
+	dev-libs/libxslt
+	media-gfx/imagemagick
 "
 
 DEPEND="
