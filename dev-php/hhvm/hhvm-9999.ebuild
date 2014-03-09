@@ -3,7 +3,7 @@
 
 EAPI=2
 
-inherit eutils git-2
+inherit eutils git-2 user
 
 EGIT_REPO_URI="git://github.com/facebook/hhvm.git"
 EGIT_BRANCH="master"
@@ -64,12 +64,20 @@ SLOT="0"
 LICENSE="PHP-3"
 KEYWORDS="~amd64"
 
+pkg_setup() {
+	ebegin "Creating hhvm user and group"
+	enewgroup hhvm
+	enewuser hhvm -1 -1 "/var/lib/hhvm" hhvm
+	eend $?
+}
+
 src_prepare()
 {
 	git submodule init
 	git submodule update
 
 	epatch "${FILESDIR}/support-curl-7.31.0.patch"
+	epatch "${FILESDIR}/cmake-findlibmagickwand.patch"
 
 	export CMAKE_PREFIX_PATH="${D}/usr/lib/hhvm"
 
@@ -102,7 +110,7 @@ src_prepare()
 src_configure()
 {
 	export HPHP_HOME="${S}"
-	econf -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE"
+	econf -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" ${HHVM_OPTS}
 }
 
 src_install()
@@ -127,7 +135,8 @@ src_install()
 	fi
 
 	dobin "${FILESDIR}/hhvm"
-	newinitd "${FILESDIR}"/hhvm.rc hhvm
+	newinitd "${FILESDIR}"/hhvm.initd hhvm
+	newconfd "${FILESDIR}"/hhvm.confd hhvm
 	dodir "/etc/hhvm"
 	insinto /etc/hhvm
 	newins "${FILESDIR}"/config.hdf.dist config.hdf.dist

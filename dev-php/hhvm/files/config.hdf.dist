@@ -1,15 +1,15 @@
-PidFile = /var/run/hhvm.pid
+PidFile = /var/run/hhvm/hhvm.pid
 
 Log {
     Level = Info
     Header = true
 
     UseLogFile = true
-    File = /var/log/hhvm_error.log
+    File = /var/log/hhvm/hhvm_error.log
 
     Access {
         * {
-            File = /var/log/hhvm_access.log
+            File = /var/log/hhvm/access.log
         }
     }
 }
@@ -172,7 +172,7 @@ VirtualHost {
         Disabled = false
         #Prefix = prefix.
         #Pattern = .*
-        PathTranslation = htdocs/
+        #PathTranslation = htdocs/
         #ServerName =
         #ServerVariables {
         #    name = value
@@ -215,8 +215,6 @@ Stats = false
 Stats {
     Web = false
     Memory = false
-    APC = false
-    APCKey = false
     SQL = false
 
     #XSL = xsl filename
