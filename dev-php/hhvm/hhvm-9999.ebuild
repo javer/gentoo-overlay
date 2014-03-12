@@ -77,7 +77,6 @@ src_prepare()
 	git submodule update
 
 	epatch "${FILESDIR}/support-curl-7.31.0.patch"
-	epatch "${FILESDIR}/cmake-findlibmagickwand.patch"
 
 	export CMAKE_PREFIX_PATH="${D}/usr/lib/hhvm"
 
