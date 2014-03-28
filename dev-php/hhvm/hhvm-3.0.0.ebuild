@@ -6,7 +6,7 @@ EAPI="5"
 inherit eutils git-2 user
 
 EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
-EGIT_BRANCH="master"
+EGIT_COMMIT="HHVM-${PV}"
 
 IUSE="debug hack xen zend-compat"
 
@@ -57,7 +57,7 @@ DEPEND="
 
 SLOT="0"
 LICENSE="PHP-3"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 
 pkg_setup() {
 	ebegin "Creating hhvm user and group"
