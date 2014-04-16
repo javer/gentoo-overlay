@@ -101,6 +101,7 @@ src_install()
 		cp -a "${S}/hphp/hack/hhi" "${D}/usr/share/hhvm/hack/"
 		cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
 		cp -a "${S}/hphp/hack/editor-plugins/vim" "${D}/usr/share/hhvm/hack/"
+		cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
 	fi
 
 	newinitd "${FILESDIR}"/hhvm.initd-r3 hhvm
