@@ -24,11 +24,12 @@ src_prepare() {
 	MYSQL_PACKAGE_PATH="${MYSQL_PACKAGE%%/*}/${MYSQL_PACKAGE_VERSION%%-*}/${MYSQL_PACKAGE_VERSION}"
 	MYSQL_WORK="${PORTAGE_TMPDIR}/portage/${MYSQL_PACKAGE}/work"
 	MYSQL_SOURCES="${MYSQL_WORK}/mysql"
-	MYSQL_BUILD="${MYSQL_WORK}/${MYSQL_PACKAGE_VERSION}_build"
+	MYSQL_BUILD="${MYSQL_WORK}/${MYSQL_PACKAGE_VERSION%%-r*}_build"
 
 	if [[ ! -d "${MYSQL_BUILD}" ]]; then
-		einfo "Compiling ${MYSQL_PACKAGE}"
-		ebuild /usr/portage/${MYSQL_PACKAGE_PATH}.ebuild compile
+		eerror "MySQL/MariaDB sources not found at path: ${MYSQL_BUILD}"
+		eerror "Please run and try again: ebuild /usr/portage/${MYSQL_PACKAGE_PATH}.ebuild compile"
+		return 1
 	fi
 
 	cp "${MYSQL_BUILD}"/include/*.h "${MYSQL_SOURCES}/include/"
