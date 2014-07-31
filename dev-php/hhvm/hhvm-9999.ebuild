@@ -45,6 +45,7 @@ RDEPEND="
 	dev-libs/libpcre
 	dev-libs/libxml2
 	dev-libs/libxslt
+	>=dev-libs/libzip-0.11.0
 	dev-libs/oniguruma
 	dev-libs/openssl
 	media-gfx/imagemagick
