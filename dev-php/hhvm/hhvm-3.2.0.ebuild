@@ -6,7 +6,19 @@ EAPI="5"
 inherit eutils git-2 user
 
 EGIT_REPO_URI="https://github.com/facebook/hhvm.git"
-EGIT_COMMIT="HHVM-${PV}"
+
+case ${PV} in
+9999)
+	EGIT_BRANCH="master"
+	KEYWORDS="~amd64"
+	;;
+*)
+	# For now, git is the only way to fetch releases
+	# https://github.com/facebook/hhvm/issues/2806
+	EGIT_COMMIT="HHVM-${PV}"
+	KEYWORDS="amd64"
+	;;
+esac
 
 IUSE="debug hack jsonc xen zend-compat"
 
@@ -41,7 +53,6 @@ RDEPEND="
 	net-libs/c-client[kerberos]
 	>=net-misc/curl-7.28.0
 	net-nds/openldap
-	>=sys-devel/gcc-4.8
 	sys-libs/libcap
 	sys-libs/ncurses
 	sys-libs/readline
@@ -59,7 +70,16 @@ DEPEND="
 
 SLOT="0"
 LICENSE="PHP-3"
-KEYWORDS="amd64"
+
+pkg_pretend() {
+	if [[ $(gcc-major-version) -lt 4 ]] || \
+			( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 8 ]] ) \
+			; then
+		eerror "${PN} needs to be built with gcc-4.8 or later."
+		eerror "Please use gcc-config to switch to gcc-4.8 or later version."
+		die
+	fi
+}
 
 pkg_setup() {
 	ebegin "Creating hhvm user and group"
