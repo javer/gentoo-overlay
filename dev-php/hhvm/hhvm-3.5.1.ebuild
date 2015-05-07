@@ -20,7 +20,7 @@ case ${PV} in
 	;;
 esac
 
-IUSE="debug hack jsonc xen +zend-compat"
+IUSE="debug hack jsonc xen zend-compat"
 
 DESCRIPTION="Virtual Machine, Runtime, and JIT for PHP"
 HOMEPAGE="https://github.com/facebook/hhvm"
@@ -31,7 +31,7 @@ RDEPEND="
 	dev-cpp/tbb
 	dev-db/sqlite
 	hack? ( >=dev-lang/ocaml-3.12[ocamlopt] )
-	>=dev-libs/boost-1.49[context]
+	>=dev-libs/boost-1.49
 	dev-libs/cloog
 	dev-libs/elfutils
 	dev-libs/expat
@@ -111,8 +111,6 @@ src_configure()
 
 	if use zend-compat; then
 		HHVM_OPTS="${HHVM_OPTS} -DENABLE_ZEND_COMPAT=ON"
-	else
-		HHVM_OPTS="${HHVM_OPTS} -DENABLE_ZEND_COMPAT=OFF"
 	fi
 
 	econf -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" ${HHVM_OPTS}
@@ -123,18 +121,14 @@ src_install()
 	emake install DESTDIR=${D}
 
 	if use hack; then
-		dobin hphp/hack/bin/h2tp
 		dobin hphp/hack/bin/hh_client
-		dobin hphp/hack/bin/hh_format
 		dobin hphp/hack/bin/hh_server
 		dobin hphp/hack/bin/hh_single_type_check
-		doman hphp/hack/man/*.1
 		dodir "/usr/share/hhvm/hack"
 		cp -a "${S}/hphp/hack/editor-plugins/emacs" "${D}/usr/share/hhvm/hack/"
+		cp -a "${S}/hphp/hack/editor-plugins/vim" "${D}/usr/share/hhvm/hack/"
 		cp -a "${S}/hphp/hack/tools" "${D}/usr/share/hhvm/hack/"
 	fi
-
-	doman hphp/doc/man/*.1
 
 	newinitd "${FILESDIR}"/hhvm.initd-r4 hhvm
 	newconfd "${FILESDIR}"/hhvm.confd-r4 hhvm
