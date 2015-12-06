@@ -5,11 +5,11 @@ EAPI=5
 PHP_EXT_NAME="pinba"
 PHP_EXT_INI="yes"
 PHP_EXT_ZENDEXT="no"
-USE_PHP="php5-3 php5-4 php5-5"
+USE_PHP="php5-3 php5-4 php5-5 php5-6"
 inherit php-ext-source-r2 git-2
 DESCRIPTION="Pinba is a realtime monitoring/statistics server for PHP using MySQL as a read-only interface."
 HOMEPAGE="http://pinba.org/"
-EGIT_REPO_URI="git://github.com/tony2001/pinba_extension.git"
+EGIT_REPO_URI="git://github.com/tony2001/pinba_extension.git https://github.com/tony2001/pinba_extension.git"
 LICENSE="PHP-3"
 SLOT="0"
 KEYWORDS="~amd64"

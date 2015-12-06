@@ -5,7 +5,7 @@ EAPI=3
 inherit autotools confutils eutils multilib git-2
 DESCRIPTION="Pinba is a MySQL storage engine that acts as a realtime monitoring/statistics server."
 HOMEPAGE="http://pinba.org/"
-EGIT_REPO_URI="git://github.com/tony2001/pinba_engine.git"
+EGIT_REPO_URI="git://github.com/tony2001/pinba_engine.git https://github.com/tony2001/pinba_engine.git"
 EGIT_BRANCH="devel"
 
 LICENSE="GPL"
